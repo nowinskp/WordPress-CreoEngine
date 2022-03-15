@@ -1,0 +1,30 @@
+{
+    "name": "nowinskp/wpce",
+    "description": "WordPress CreoEngine library",
+    "homepage": "https://github.com/nowinskp/WordPress-CreoEngine",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Piotr Nowiński",
+            "email": "piotr@piotrnowinski.com",
+            "homepage": "http://piotrnowinski.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Wpce\\": "src/"
+        }
+    },
+    "require": {
+        "mustache/mustache": "^2.14",
+        "php": ">=7.4.0",
+        "sentry/sdk": "^3.1"
+    },
+    "require-dev": {
+        "php-stubs/wordpress-stubs": "^5.6",
+        "php-stubs/wordpress-globals": "^0.2.0",
+        "paulthewalton/acf-pro-stubs": "5.8.9.1"
+    }
+}
