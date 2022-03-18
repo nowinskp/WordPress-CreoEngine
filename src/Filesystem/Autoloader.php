@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpce\Utils;
+namespace Wpce\Filesystem;
 
 class Autoloader {
 
