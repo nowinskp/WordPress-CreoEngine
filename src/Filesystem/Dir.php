@@ -4,6 +4,9 @@ namespace Wpce\Filesystem;
 
 use Wpce\Logging\SentryService;
 
+/**
+ * Handles basic operations on directories
+ */
 class Dir {
 
   /**
@@ -33,7 +36,7 @@ class Dir {
   }
 
   /**
-   * Deletes all files an sub-directories from a folder
+   * Deletes all files an sub-directories from a directory
    *
    * @param string $dirPath - path to the directory
    * @param bool $removeParentDir - whether to remove the parent dir itself

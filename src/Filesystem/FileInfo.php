@@ -4,7 +4,13 @@ namespace Wpce\Filesystem;
 
 class FileInfo {
 
-  static function getPhpFileErrorMessageByCode(int $errorCode): ?string {
+  /**
+   * Returns a human-readable PHP uploaded file error message
+   *
+   * @param integer $errorCode
+   * @return string|null error message for valid error codes
+   */
+  static function getPhpUploadedFileErrorMessageByCode(int $errorCode): ?string {
     switch ($errorCode) {
       case 1:
         return 'File is too big (server limit is '.ini_get('upload_max_filesize').').';
@@ -49,7 +55,7 @@ class FileInfo {
       return $labels['invalidSource'];
     }
     if ($uploadedFile['error'] > 0) {
-      return self::getPhpFileErrorMessageByCode($uploadedFile['error']);
+      return self::getPhpUploadedFileErrorMessageByCode($uploadedFile['error']);
     }
     if ($uploadedFile['size'] > $maxFileSizeInBytes) {
       return sprintf($labels['fileTooBig'], $maxFileSizeInMegabytes);
