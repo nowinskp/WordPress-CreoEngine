@@ -30,7 +30,7 @@ class TemplatePaths {
    * @param string $templatesDirectory - path to directory with template files
    * @return  void
    */
-  public function __construct($templatesDirectory = 'templates') {
+  public function __construct(string $templatesDirectory = 'templates') {
     $this->templatesDirectory = $templatesDirectory;
   }
 
@@ -40,7 +40,7 @@ class TemplatePaths {
    * @param array $templates A list of candidates template files.
    * @return string Full path to template file.
    */
-  public function changeTemplatePath($templates) {
+  public function changeTemplatePath(array $templates) {
     // don't use the custom template directory in unexpected cases
     if (empty($templates) || !is_array($templates)) {
       return $templates;
@@ -76,7 +76,7 @@ class TemplatePaths {
    * @param array $templateHierarchies - array of hierarchies to overwrite
    * @return void
    */
-  public function changePathsForTemplates($templateHierarchies = [
+  public function changePathsForTemplates(array $templateHierarchies = [
     '404',
     'archive',
     'attachment',
