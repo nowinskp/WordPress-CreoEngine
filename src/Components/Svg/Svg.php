@@ -62,6 +62,7 @@ abstract class Svg extends StaticComponent {
 
     if ($imgConfig['type'] === 'path') {
       $appliedColor = $color ?: Get::in($imgConfig, 'defaultColor', 'currentColor');
+      // @todo convert to Html util call
       $svgContent = '<path d="'.$imgData.'" fill="'.$appliedColor.'" />';
     } else {
       $svgContent = $imgData;
@@ -74,6 +75,7 @@ abstract class Svg extends StaticComponent {
     }
 
     if ($displayMode === 'wrapped') {
+      // @todo convert to Html util call
       return '<'.$wrapperTag.' class="'.$rootName.Get::stringIf($wrapperClass, ' '.$wrapperClass).'">'.$svgHtml.'</'.$wrapperTag.'>';
     }
 
