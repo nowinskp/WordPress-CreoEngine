@@ -19,7 +19,7 @@ class Button extends MustacheComponent {
    *
    * @return string
    */
-  public function configureProps(OptionsResolver $resolver, array $props) {
+  protected function configureProps(OptionsResolver $resolver, array $props) {
     $resolver->setDefaults([
       'color' => null,
       'iconHtml' => null,
@@ -30,7 +30,7 @@ class Button extends MustacheComponent {
     ]);
   }
 
-  public function parseProps(array $props) {
+  protected function parseProps(array $props) {
     $this->target = Get::stringIf($this->target, 'target="'.$this->target.'"');
     $this->colorClass = $this->addToRootClassesIf($this->color, 'color-'.$this->color);
     $this->iconClass = $this->addToRootClassesIf($this->iconHtml, 'hasIcon');
