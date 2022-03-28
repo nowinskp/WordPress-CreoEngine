@@ -2,6 +2,7 @@
 
 namespace Wpce\Components\Abstracts;
 
+use Exception;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wpce\Content\Template;
 use Wpce\Utils\Get;
@@ -39,9 +40,7 @@ abstract class MustacheComponent {
 
 
   /**
-   * Constructor - accepts component props and sets core properties
-   * such as rootName and child class ReflectionClass. Runs child's
-   * parseProps method to validate and assign passed component props.
+   * Constructor - accepts component props and sets core data.
    *
    * By default, a `rootName` optional prop is always accepted to allow
    * for overwriting the default, which is `<rootNamePrefix><ComponentClassName>`,
@@ -55,20 +54,62 @@ abstract class MustacheComponent {
    * @param array $props
    */
   public function __construct(array $props) {
+    /**
+     * The following names are used for internal component logic and therefore
+     * cannot ever be used as prop names.
+     */
+    $forbiddenPropNames = [
+      'rootNamePrefix',
+      'classSeparator',
+      'childRef',
+      'rootClasses',
+    ];
+    foreach ($forbiddenPropNames as $forbiddenPropName) {
+      if (array_key_exists($forbiddenPropName, $props)) {
+        throw new Exception("\"$forbiddenPropName\" cannot be used as prop name.");
+      }
+    }
+
+    $this->childRef = new \ReflectionClass(get_class($this));
+
+    $customProps = $this->configureParseAndExtractBuiltinProps($props);
+
+    $resolver = new OptionsResolver();
+    $this->configureProps($resolver, $customProps);
+    $this->assignProps($resolver->resolve($customProps));
+    $this->parseProps($resolver->resolve($customProps));
+  }
+
+
+  /**
+   * Uses OptionsResolver to validate built-in props, then parses them
+   * and removes them from original props array.
+   *
+   * Built-in classes consist of:
+   * @property string 'class' custom CSS class to be added to component root HTML tag
+   * @property string 'rootName' overwrites default rootName value (inc. rootNamePrefix)
+   *
+   * @param array $props
+   * @return array props without built-in ones
+   */
+  private function configureParseAndExtractBuiltinProps(array $props) {
     if (defined('WPCE_COMPONENT_ROOT_NAME_PREFIX')) {
       $this->rootNamePrefix = constant('WPCE_COMPONENT_ROOT_NAME_PREFIX');
     }
     if (defined('WPCE_COMPONENT_CLASS_SEPARATOR')) {
       $this->classSeparator = constant('WPCE_COMPONENT_CLASS_SEPARATOR');
     }
-    $this->childRef = new \ReflectionClass(get_class($this));
-    $this->rootName = Get::in($props, 'rootName', $this->rootNamePrefix.$this->childRef->getShortName());
-    $this->rootClasses[] = $this->rootName;
 
-    $resolver = new OptionsResolver();
-    $this->configureProps($resolver, $props);
-    $this->assignProps($resolver->resolve($props));
-    $this->parseProps($resolver->resolve($props));
+    $builtInProps = [
+      'class' => Get::in($props, 'class'),
+      'rootName' => Get::in($props, 'rootName', $this->rootNamePrefix.$this->childRef->getShortName()),
+    ];
+
+    $this->assignProps($builtInProps);
+    $this->rootClasses[] = $this->rootName;
+    $this->addToRootClasses($this->class, false);
+
+    return array_diff_key($props, $builtInProps);
   }
 
 
@@ -88,7 +129,7 @@ abstract class MustacheComponent {
    * @param array $props validated component props
    * @return void
    */
-  function assignProps(array $props) {
+  private function assignProps(array $props) {
     foreach ($props as $prop => $value) {
       $this->$prop = $value;
     }
@@ -103,7 +144,7 @@ abstract class MustacheComponent {
    * @param array $props validated component props
    * @return void
    */
-  function parseProps(array $props) {}
+  public function parseProps(array $props) {}
 
 
   /**
