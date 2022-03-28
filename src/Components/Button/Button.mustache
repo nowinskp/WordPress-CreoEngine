@@ -1,11 +1,15 @@
 <a href="{{url}}" class="{{getRootClasses}}" {{target}}>
-  {{{iconHtml}}}
-  <div>
+  {{#iconHtml}}
+    <div class="icon">
+      {{{iconHtml}}}
+    </div>
+  {{/iconHtml}}
+  <div class="labels">
     {{#label}}
-      <span class="label">{{label}}</span>
+      <div class="label">{{label}}</div>
     {{/label}}
     {{#sublabel}}
-      <span class="sublabel">{{sublabel}}</span>
+      <div class="sublabel">{{sublabel}}</div>
     {{/sublabel}}
   </div>
 </a>

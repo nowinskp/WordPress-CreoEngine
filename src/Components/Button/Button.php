@@ -2,38 +2,39 @@
 
 namespace Wpce\Components\Button;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wpce\Utils\Get;
 use Wpce\Components\Abstracts\MustacheComponent;
 
 class Button extends MustacheComponent {
 
-  public $color;
-  public $iconHtml;
-  public $label;
-  public $sublabel;
-  public $target;
-  public $url;
-
   /**
    * @param array $props
-   * @property string class - optional additional CSS classes
-   * @property string label - button label
-   * @property string iconHtml - optional icon html
-   * @property string color - button color theme
-   * @property string url - target url
+   * @property string 'class' additional CSS classes
+   * @property string 'color' button color theme
+   * @property string 'iconHtml' icon html
+   * @property string 'label' button label
+   * @property string 'sublabel' button sublabel
+   * @property string 'target' target
+   * @property string 'url' href value
    *
    * @return string
    */
-  public function parseProps(array $props = []) {
-    $this->color = Get::in($props, 'color');
-    $this->iconHtml = Get::in($props, 'iconHtml');
-    $this->label = Get::in($props, 'label');
-    $this->sublabel = Get::in($props, 'sublabel');
-    $this->url = Get::in($props, 'url');
+  public function configureProps(OptionsResolver $resolver, array $props) {
+    $resolver->setDefaults([
+      'class' => null,
+      'color' => null,
+      'iconHtml' => null,
+      'label' => null,
+      'sublabel' => null,
+      'target' => null,
+      'url' => null,
+    ]);
+  }
 
-    $this->addToRootClasses(Get::in($props, 'class'), false);
-    $target = Get::in($props, 'target');
-    $this->target = Get::stringIf($target, 'target="'.$target.'"');
+  public function parseProps(array $props) {
+    $this->addToRootClasses($this->class, false);
+    $this->target = Get::stringIf($this->target, 'target="'.$this->target.'"');
     $this->colorClass = $this->addToRootClassesIf($this->color, 'color-'.$this->color);
     $this->iconClass = $this->addToRootClassesIf($this->iconHtml, 'hasIcon');
   }
