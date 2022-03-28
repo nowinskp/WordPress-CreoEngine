@@ -2,6 +2,7 @@
 
 namespace Wpce\Components\Abstracts;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wpce\Content\Template;
 use Wpce\Utils\Get;
 
@@ -63,19 +64,46 @@ abstract class MustacheComponent {
     $this->childRef = new \ReflectionClass(get_class($this));
     $this->rootName = Get::in($props, 'rootName', $this->rootNamePrefix.$this->childRef->getShortName());
     $this->rootClasses[] = $this->rootName;
-    $this->parseProps($props);
+
+    $resolver = new OptionsResolver();
+    $this->configureProps($resolver, $props);
+    $this->assignProps($resolver->resolve($props));
+    $this->parseProps($resolver->resolve($props));
   }
 
 
   /**
-   * Method for parsing props used to construct the component.
-   * It should validate and set all the props to be used
-   * as class' public variables.
+   * Uses OptionsResolver to validate props used to construct the component.
    *
+   * @param OptionsResolver $resolver OptionsResolver instance
    * @param array $props
    * @return void
    */
-  abstract function parseProps(array $props);
+  abstract function configureProps(OptionsResolver $resolver, array $props);
+
+
+  /**
+   * Assigns every validated prop as component's public property.
+   *
+   * @param array $props validated component props
+   * @return void
+   */
+  function assignProps(array $props) {
+    foreach ($props as $prop => $value) {
+      $this->$prop = $value;
+    }
+  }
+
+
+  /**
+   * Optional method for parsing already validated and assigned component props.
+   * It can be used to eg. overwrite assigned props or set new props based on
+   * their values.
+   *
+   * @param array $props validated component props
+   * @return void
+   */
+  function parseProps(array $props) {}
 
 
   /**
