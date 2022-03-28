@@ -7,18 +7,18 @@ abstract class StaticComponent {
   /**
    * Echoes component's HTML code.
    *
-   * @param array $options
+   * @param array $props
    * @return void
    */
-  static function renderHtml($options = []) {
-    echo static::getHtml($options);
+  static function renderHtml(array $props) {
+    echo static::getHtml($props);
   }
 
   /**
     * Gets component's HTML code
     *
-    * @param array $options
+    * @param array $props
     * @return string|null
     */
-  abstract static function getHtml($options = []);
+  abstract static function getHtml(array $props);
 }
