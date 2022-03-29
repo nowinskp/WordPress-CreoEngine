@@ -52,7 +52,7 @@ abstract class DefaultComponent {
    *
    * @param array $props
    */
-  public function __construct(array $props) {
+  public function __construct(array $props = []) {
     /**
      * The following names are used for internal component logic and therefore
      * cannot ever be used as prop names.
