@@ -6,9 +6,9 @@ namespace Wpce\Logging;
  * Logs messages to a set log file.
  */
 class LogFile {
-  private $logFile;
-  private $logFilePointer;
-  private $timeFormat = '[Y-m-d@H:i:s]';
+  protected $logFile;
+  protected $logFilePointer;
+  protected $timeFormat = '[Y-m-d@H:i:s]';
 
   /**
    * Sets path to log file on instance creation
@@ -38,8 +38,6 @@ class LogFile {
    * @param string $messsage log message
    */
   public function writeLog(string $message) {
-    global $userLogin;
-
     if (!is_resource($this->logFilePointer)) {
       $this->openLogFile();
     }
@@ -48,17 +46,10 @@ class LogFile {
 
     // define current time and suppress E_WARNING if using the system TZ settings
     // (don't forget to set the INI setting date.timezone)
-    $time = @wp_date($this->timeFormat);
-
-    wp_get_current_user();
-    if ($userLogin) {
-      $user = '['.$userLogin.']';
-    } else {
-      $user = '[unknown]';
-    }
+    $time = @date($this->timeFormat);
 
     // write current time, script name and message to the log file
-    fwrite($this->logFilePointer, "$time ($scriptName) $user $message" . PHP_EOL);
+    fwrite($this->logFilePointer, "$time ($scriptName) $message" . PHP_EOL);
   }
 
   /**
@@ -76,7 +67,7 @@ class LogFile {
    *
    * @return void
    */
-  private function openLogFile() {
+  protected function openLogFile() {
     // in case of Windows set default log file
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
       $logFileFallback = 'c:/php/logfile.txt';

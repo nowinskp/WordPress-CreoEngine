@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpce\Utils;
+namespace Wpce\WordPress\Utils;
 
 /**
  * Util for determining what environment the website is currently run in.

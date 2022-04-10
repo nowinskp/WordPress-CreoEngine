@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpce\ThemeConfig;
+namespace Wpce\WordPress\ThemeConfig;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

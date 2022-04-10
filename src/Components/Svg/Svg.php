@@ -36,7 +36,7 @@ abstract class Svg extends StaticComponent {
     $wrapperTag = Get::in($props, 'wrapperTag', 'i');
 
     $imgDataPath = static::getSvgImageDataPath($imgName);
-    $imgConfig = static::getSvgImagesConfig($imgName);
+    $imgConfig = static::getSvgImageConfig($imgName);
 
     try {
       if ($imgDataPath && $imgConfig) {
@@ -84,15 +84,20 @@ abstract class Svg extends StaticComponent {
 
 
   /**
-   * Gets svg image config file.
-   * Meant to be overwritteb with method providing proper path.
+   * Return path to svg image data
    *
-   * @param string imgName name of the image config file
+   * @param string imgName name of svg image data file
    * @return string path to file
    */
   abstract static function getSvgImageDataPath($imgName);
 
 
-  abstract static function getSvgImagesConfig($imgName);
+  /**
+   * Gets svg image config array
+   *
+   * @param string imgName name of the image
+   * @return array
+   */
+  abstract static function getSvgImageConfig($imgName);
 
 }

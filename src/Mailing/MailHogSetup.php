@@ -3,7 +3,7 @@
 namespace Wpce\Mailing;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use Wpce\Utils\Environment;
+use Wpce\WordPress\Utils\Environment;
 
 /*
  * Add the SMTP routing to MailHog

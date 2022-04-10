@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpce\Acf\Abstracts;
+namespace Wpce\WordPress\Acf\Abstracts;
 
 use Wpce\Utils\Get;
 

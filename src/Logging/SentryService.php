@@ -2,7 +2,7 @@
 
 namespace Wpce\Logging;
 
-use Wpce\Utils\Environment;
+use Wpce\WordPress\Utils\Environment;
 
 class SentryService {
 

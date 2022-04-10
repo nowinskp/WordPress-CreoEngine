@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpce\ThemeConfig;
+namespace Wpce\WordPress\ThemeConfig;
 
 /**
  * Changes WordPress default template files paths so that template files can be resolved from different folder.
