@@ -169,38 +169,85 @@ abstract class DefaultType {
   // Default post data getters
   // *************************************
 
-  public function getId() {
+  /**
+   * Returns post ID
+   *
+   * @return int
+   */
+  public function getId(): int {
     return $this->post->ID;
   }
 
-  public function hasFeaturedImage() {
+  /**
+   * Wrapper for has_post_thumbnail
+   *
+   * @return boolean
+   */
+  public function hasFeaturedImage(): bool {
     return has_post_thumbnail($this->getId());
   }
 
-  public function getFeaturedImageUrl(string $size) {
+  /**
+   * Wrapper for get_the_post_thumbnail_url.
+   * Returns null if there's no image set.
+   *
+   * @param string $size
+   * @return string|null
+   */
+  public function getFeaturedImageUrl(string $size): ?string {
     return has_post_thumbnail($this->getId()) ? get_the_post_thumbnail_url($this->getId(), $size) : null;
   }
 
-  public function getFeaturedImageCssBackgroundStyle(string $size) {
+	/**
+	 * Returning style's background-image attr, in a format:
+	 * `"background-image: url('{imageUrl');"`
+   *
+   * @param string $size image size
+   * @return string
+   */
+  public function getFeaturedImageCssBackgroundStyle(string $size): string {
     return Html::getBackgroundImageAttr($this->getFeaturedImageUrl($size));
   }
 
-  public function getPermalink() {
+  /**
+   * Wrapper for get_the_permalink
+   */
+  public function getPermalink(): string {
     return get_the_permalink($this->getId());
   }
 
-  public function getTitle() {
+  /**
+   * Returns post title
+   *
+   * @return string
+   */
+  public function getTitle(): string {
     return $this->post->post_title;
   }
 
-  public function getStatus() {
+  /**
+   * Returns post publication status
+   *
+   * @return string
+   */
+  public function getStatus(): string {
     return $this->post->post_status;
   }
 
+  /**
+   * Returns true if post is published
+   *
+   * @return boolean
+   */
   public function isPublished() {
     return $this->getStatus() === 'publish';
   }
 
+  /**
+   * Returns raw (unfiltered) post_content content
+   *
+   * @return void
+   */
   public function getRawContent() {
     return trim($this->post->post_content);
   }
