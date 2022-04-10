@@ -154,7 +154,7 @@ class Enqueue {
       ->allowedTypes('array[]')
       ->allowedValues(static function(array &$elements): bool {
         $subResolver = new OptionsResolver;
-        self::configureScriptsTypeOptions($subResolver);
+        self::configureStylesTypeOptions($subResolver);
         $elements = array_map([$subResolver, 'resolve'], $elements);
         return true;
       });
