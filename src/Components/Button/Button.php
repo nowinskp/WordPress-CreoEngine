@@ -11,10 +11,13 @@ class Button extends MustacheComponent {
   /**
    * @param array $props
    * @property string 'color' button color theme
+   * @property string 'jshandle' data-jshandle attr value
    * @property string 'iconHtml' icon html
    * @property string 'label' button label
    * @property string 'sublabel' button sublabel
+   * @property string 'tag' `a` or `button`
    * @property string 'target' target
+   * @property string 'type' button type
    * @property string 'url' href value
    *
    * @return string
@@ -23,17 +26,29 @@ class Button extends MustacheComponent {
     $resolver->setDefaults([
       'color' => null,
       'iconHtml' => null,
+      'jshandle' => null,
       'label' => null,
       'sublabel' => null,
+      'tag' => 'a',
       'target' => null,
+      'type' => null,
       'url' => null,
+    ]);
+
+    $resolver->setAllowedValues('tag', ['a', 'button']);
+    $resolver->setAllowedValues('type', [
+      null, 'button', 'submit', 'reset'
     ]);
   }
 
   protected function parseProps(array $props) {
+    $this->addToRootClassesIf($this->color, 'color-'.$this->color);
+    $this->addToRootClassesIf($this->iconHtml, 'hasIcon');
+
+    $this->href = Get::stringIf($this->url, 'href="'.$this->url.'"');
+    $this->jshandle = Get::stringIf($this->jshandle, 'data-jshandle="'.$this->jshandle.'"');
     $this->target = Get::stringIf($this->target, 'target="'.$this->target.'"');
-    $this->colorClass = $this->addToRootClassesIf($this->color, 'color-'.$this->color);
-    $this->iconClass = $this->addToRootClassesIf($this->iconHtml, 'hasIcon');
+    $this->type = Get::stringIf($this->type, 'type="'.$this->type.'"');
   }
 
 }
