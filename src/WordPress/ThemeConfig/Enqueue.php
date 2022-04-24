@@ -34,6 +34,10 @@ class Enqueue {
    * Wrapper for wp_enqueue_script.
    * Contains built-in option to pass localization array.
    *
+   * *Please note:* scripts localization created by wp_localize_scripts will
+   * be set under ${handle}Vars global variable, eg. ScriptsCommon will have
+   * ScriptsCommonVars global var created when $localizeObject is set.
+   *
    * @param string $handle script handle, must be unique
    * @param string $pathToFile
    * path to file to load. Path set in constructor as assetsLocation is auto added at the beginning,
@@ -49,7 +53,7 @@ class Enqueue {
     }
     wp_enqueue_script($handle, $pathToFile, $dependencies, $this->releaseVersion, $inFooter);
     if (!empty($localizeObject)) {
-      wp_localize_script($handle, $handle, $localizeObject);
+      wp_localize_script($handle, $handle.'Vars', $localizeObject);
     }
   }
 
