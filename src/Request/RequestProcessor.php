@@ -134,6 +134,6 @@ abstract class RequestProcessor {
    *
    * @return void
    */
-  protected function validateField($fieldName, $fieldValue) {}
+  protected function validateField(string $fieldName, $fieldValue): void {}
 
 }

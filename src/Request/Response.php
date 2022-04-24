@@ -7,7 +7,22 @@ namespace Wpce\Request;
  */
 class Response {
 
+  /**
+   * Default HTTP error response code when form contains any errors
+   * and the response code has not been explicitly set.
+   *
+   * Can be overwritten by setting the constant:
+   * WPCE_FORM_DEFAULT_ERROR_RESPONSE_CODE
+   */
   const DEFAULT_ERROR_RESPONSE_CODE = 400;
+
+  /**
+   * Default form error added when form contain errors in its fields.
+   *
+   * Can be overwritten by setting the constant:
+   * WPCE_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS
+   */
+  const DEFAULT_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS = 'Please check your form fields for errors.';
 
   protected $fieldErrors = [];
   protected $formErrors = [];
@@ -21,12 +36,18 @@ class Response {
    */
   public function getResponse() {
     if ($this->hasErrors()) {
+      $this->addFormError(
+        defined('WPCE_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS') ? constant('WPCE_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS') : self::DEFAULT_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS
+      );
+
       /**
        * If no error response code is set but response has errors
        * use a default one, ie. 400.
        */
       if ($this->responseCode < 400) {
-        http_response_code(self::DEFAULT_ERROR_RESPONSE_CODE);
+        http_response_code(
+          defined('WPCE_FORM_DEFAULT_ERROR_RESPONSE_CODE') ? constant('WPCE_FORM_DEFAULT_ERROR_RESPONSE_CODE') : self::DEFAULT_ERROR_RESPONSE_CODE
+        );
       }
 
       return [
@@ -79,7 +100,7 @@ class Response {
    * @param string $errorMessage error message
    * @return void
    */
-  public function setFormError(string $errorMessage) {
+  public function addFormError(string $errorMessage) {
     $this->formErrors[] = $errorMessage;
   }
 
