@@ -8,18 +8,35 @@ use Mustache_Loader_FilesystemLoader;
 class Template {
 
   /**
-   * Simple wrapper for Mustache's `render` method providing prefilled
-   * engine config
+   * Wrapper for Mustache's `render` method providing prefilled
+   * engine config to render templates from strings.
    *
    * @param string $template template content
    * @param array $templateData template data
    * @return string rendered template
    */
-	static function render(string $template, array $templateData = []) {
+	static function renderFromString(string $template, array $templateData = []) {
     $engine = new Mustache_Engine([
       'entity_flags' => ENT_QUOTES,
     ]);
     return $engine->render($template, $templateData);
+  }
+
+  /**
+   * Wrapper for Mustache's `render` method providing prefilled
+   * engine config to render templates from template files.
+   *
+   * Assumes template files have a .mustache extension.
+   *
+   * @param string $templateFilePath
+   * path to the template file, without extension
+   * @param array $templateData template data
+   *
+   * @return string rendered template
+   */
+	static function renderFromFile(string $templateFilePath, array $templateData = []) {
+    $template = file_get_contents($templateFilePath.'.mustache');
+    return self::renderFromString($template, $templateData);
   }
 
   /**
@@ -33,7 +50,8 @@ class Template {
    *  |- Component.php
    *  |- Component.mustache
    * @param string $componentName name of the component
-   * @param string $componentDir directory that consist of the component
+   * @param string $componentDir directory that consists of the component
+   *
    * @return string rendered template
    */
 	static function renderComponent($componentName, $componentDir, $templateData = []) {
