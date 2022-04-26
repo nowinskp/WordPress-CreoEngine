@@ -166,6 +166,20 @@ abstract class DefaultType {
 
 
   // *************************************
+  // Ancestors
+  // *************************************
+
+  /**
+   * Returns top level parent post id or false if there are no parents
+   *
+   * @return int|false
+   */
+  public function getTopLevelParentId() {
+    return end(get_post_ancestors($this->getId()));
+  }
+
+
+  // *************************************
   // Default post data getters
   // *************************************
 
@@ -223,6 +237,15 @@ abstract class DefaultType {
    */
   public function getTitle(): string {
     return $this->post->post_title;
+  }
+
+  /**
+   * Returns post excerpt
+   *
+   * @return string
+   */
+  public function getExcerpt(): string {
+    return $this->post->post_excerpt;
   }
 
   /**
