@@ -1,0 +1,9 @@
+<nav class="{{getRootClasses}}">
+  {{# homeCrumb}}
+    {{> Crumb}}
+  {{/ homeCrumb}}
+  {{# crumbs}}
+    <span class="separator">{{{separator}}}</span>
+    {{> Crumb}}
+  {{/ crumbs}}
+</nav>
