@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpce\Components\Button;
+namespace Wpce\Components\EditorContent;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wpce\Components\Abstracts\MustacheComponent;
