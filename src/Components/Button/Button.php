@@ -11,6 +11,7 @@ class Button extends MustacheComponent {
   /**
    * @param array $props
    * @property string 'color' button color theme
+   * @property string 'display' button display mode
    * @property string 'jshandle' data-jshandle attr value
    * @property string 'iconHtml' icon html
    * @property string 'label' button label
@@ -25,6 +26,7 @@ class Button extends MustacheComponent {
   protected function configureProps(OptionsResolver $resolver, array $props) {
     $resolver->setDefaults([
       'color' => null,
+      'display' => null,
       'iconHtml' => null,
       'jshandle' => null,
       'label' => null,
@@ -43,6 +45,7 @@ class Button extends MustacheComponent {
 
   protected function parseProps(array $props) {
     $this->addToRootClassesIf($this->color, 'color-'.$this->color);
+    $this->addToRootClassesIf($this->display, 'display-'.$this->display);
     $this->addToRootClassesIf($this->iconHtml, 'hasIcon');
 
     $this->href = Get::stringIf($this->url, 'href="'.$this->url.'"');
