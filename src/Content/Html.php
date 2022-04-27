@@ -4,21 +4,58 @@ namespace Wpce\Content;
 
 class Html {
 
+  const HTML_BOOLEAN_ATTRIBUTES = [
+    'allowfullscreen',
+    'allowpaymentrequest',
+    'async',
+    'autofocus',
+    'autoplay',
+    'checked',
+    'controls',
+    'default',
+    'defer',
+    'disabled',
+    'formnovalidate',
+    'hidden',
+    'ismap',
+    'itemscope',
+    'loop',
+    'multiple',
+    'muted',
+    'nomodule',
+    'novalidate',
+    'open',
+    'playsinline',
+    'readonly',
+    'required',
+    'reversed',
+    'selected',
+    'truespeed',
+  ];
+
   /**
    * Returns a string of {atribute}="{value}" pairs.
-   * Skips attributes with empty attributes.
+   *
+   * Skips attributes with `null` values.
+   * For boolean attributes, skips attributes with falsy values.
    *
    * @param array $attrs
    * @return string
    */
   static function getAttrsString(array $attrs = []) {
     $attributesString = '';
+
     foreach ($attrs as $name => $value) {
-      if ($value) {
+      if (in_array(strtolower($name), self::HTML_BOOLEAN_ATTRIBUTES)) {
+        if ($value) {
+          $attributesString .= " $name";
+        }
+      } else if ($value !== null) {
         $value = ('href' === $name) ? esc_url($value) : esc_attr($value);
         $attributesString .= " $name=\"$value\"";
       }
     }
+
     return $attributesString;
   }
 
