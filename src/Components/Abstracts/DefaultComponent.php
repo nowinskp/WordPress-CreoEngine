@@ -165,7 +165,7 @@ abstract class DefaultComponent {
    * @param bool $usePrefix whether to prefix class with rootName
    * @return void
    */
-  protected function addToRootClasses(?string $class, bool $usePrefix = true) {
+  public function addToRootClasses(?string $class, bool $usePrefix = true) {
     $prefixedClass = $usePrefix ? $this->rootName.$this->classSeparator.$class : $class;
     if (isset($class) && !in_array($prefixedClass, $this->rootClasses)) {
       $this->rootClasses[] = $prefixedClass;
@@ -184,7 +184,7 @@ abstract class DefaultComponent {
    * @param bool $usePrefix whether to prefix class with rootName
    * @return void
    */
-  protected function addToRootClassesIf($condition, ?string $class, bool $usePrefix = true) {
+  public function addToRootClassesIf($condition, ?string $class, bool $usePrefix = true) {
     if ($condition) {
       $this->addToRootClasses($class, $usePrefix);
     }
