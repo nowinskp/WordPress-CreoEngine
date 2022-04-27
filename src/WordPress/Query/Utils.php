@@ -4,7 +4,7 @@ namespace Wpce\WordPress\Query;
 
 use Wpce\Utils\Get;
 
-class PostUtils {
+class Utils {
 
   /**
    * Returns post type of the current query

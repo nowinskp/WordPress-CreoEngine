@@ -5,7 +5,7 @@ namespace Wpce\Components\WordPress\Breadcrumbs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wpce\Components\Abstracts\MustacheComponent;
 use Wpce\Utils\Text;
-use Wpce\WordPress\Query\PostUtils;
+use Wpce\WordPress\Query\Utils;
 
 /**
  * Breadcrumbs generator
@@ -103,7 +103,7 @@ class Breadcrumbs extends MustacheComponent {
       $meta['userId'] = $user->ID;
 
 		} else if (is_post_type_archive()) {
-      $postType = PostUtils::getQueriedPostType();
+      $postType = Utils::getQueriedPostType();
       $postTypeObject = get_post_type_object($postType);
 
       $title = (isset($postTypeObject->labels->archive_name)) ? $postTypeObject->labels->archive_name : $postTypeObject->labels->name;
