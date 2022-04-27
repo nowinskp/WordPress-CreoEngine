@@ -9,13 +9,13 @@ class EditorContent extends MustacheComponent {
 
   /**
    * @param array $props
-   * @property string 'content' HTML content of WP WYSIWYG editor
+   * @property string 'contentHtml' HTML content of WP WYSIWYG editor
    *
    * @return string
    */
   protected function configureProps(OptionsResolver $resolver, array $props) {
     $resolver->setDefaults([
-      'content' => null,
+      'contentHtml' => null,
     ]);
   }
 
