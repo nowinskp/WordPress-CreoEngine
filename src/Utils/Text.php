@@ -13,7 +13,10 @@ class Text {
    *
    * @return void
    */
-  static function trimByCharactersCount(string $string, int $maxLength = 30, string $end = '[...]') {
+  static function trimByCharactersCount(?string $string, int $maxLength = 30, string $end = '[...]') {
+    if (!$string) {
+      return '';
+    }
     $string = strip_tags($string);
     $string = trim($string);
     $output = mb_substr($string, 0, $maxLength);
@@ -33,7 +36,10 @@ class Text {
    *
    * @return void
    */
-  static function trimByWordsCount(string $string, int $maxWordsCount = 5, string $end = '[...]') {
+  static function trimByWordsCount(?string $string, int $maxWordsCount = 5, string $end = '[...]') {
+    if (!$string) {
+      return '';
+    }
     $string = strip_tags($string);
     $string = trim($string);
     $stringParts = explode(' ', $string);
