@@ -28,6 +28,7 @@ class Response {
   protected $formErrors = [];
   protected $responseCode = 200;
   protected $responseData = [];
+  protected $successMessage = 'Request was made successfully.';
 
   /**
    * Parses response data and generates response
@@ -51,15 +52,16 @@ class Response {
       }
 
       return [
-        'isSuccess' => false,
         'fieldErrors' => $this->fieldErrors,
         'formErrors' => $this->formErrors,
+        'isSuccess' => false,
       ];
     }
 
     return [
-      'isSuccess' => true,
       'data' => $this->responseData,
+      'isSuccess' => true,
+      'successMessage' => $this->successMessage,
     ];
   }
 
@@ -123,6 +125,17 @@ class Response {
    */
   public function setResponseCode(int $responseCode) {
     $this->responseCode = $responseCode;
+  }
+
+  /**
+   * Sets success message added to successful response
+   *
+   * @param string $message success message to be set
+   *
+   * @return void
+   */
+  public function setSuccessMessage(string $message) {
+    $this->successMessage = $message;
   }
 
 }
