@@ -7,11 +7,16 @@ use Wpce\Utils\Get;
 
 class Post {
 
-  function __construct($post) {
-    if (is_int($post)) {
-      $this->post = get_post($post);
-    } else if (is_a($post, '\WP_Post')) {
-      $this->post = $post;
+  function __construct($postToLoad = null) {
+    if ($postToLoad === null) {
+      global $post;
+      $postToLoad = $post;
+    }
+
+    if (is_int($postToLoad)) {
+      $this->post = get_post($postToLoad);
+    } else if (is_a($postToLoad, '\WP_Post')) {
+      $this->post = $postToLoad;
     } else {
       throw new \Exception('Invalid param used in constructor for '.get_called_class());
     }
@@ -243,7 +248,7 @@ class Post {
    * @return string
    */
   public function getTitle(): string {
-    return $this->post->post_title;
+    return apply_filters('the_title', $this->post->post_title);
   }
 
   /**
@@ -252,7 +257,7 @@ class Post {
    * @return string
    */
   public function getExcerpt(): string {
-    return $this->post->post_excerpt;
+    return $this->post->post_excerpt ? apply_filters('get_the_excerpt', $this->post->post_excerpt) : '';
   }
 
   /**
