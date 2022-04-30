@@ -102,6 +102,14 @@ class Breadcrumbs extends MustacheComponent {
       $type = 'author';
       $meta['userId'] = $user->ID;
 
+		} else if (is_home()) {
+      $postType = 'post';
+      $postTypeObject = get_post_type_object($postType);
+
+      $title = (isset($postTypeObject->labels->archive_name)) ? $postTypeObject->labels->archive_name : $postTypeObject->labels->name;
+      $type = 'archive';
+			$meta['postType'] = get_post_type();
+
 		} else if (is_post_type_archive()) {
       $postType = Utils::getQueriedPostType();
       $postTypeObject = get_post_type_object($postType);
