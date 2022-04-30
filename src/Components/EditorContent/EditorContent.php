@@ -20,7 +20,7 @@ class EditorContent extends MustacheComponent {
   }
 
   protected function parseProps(array $props) {
-    $this->content = apply_filters('the_content', $this->content);
+    $this->content = apply_filters('the_content', $this->contentHtml);
   }
 
 }
