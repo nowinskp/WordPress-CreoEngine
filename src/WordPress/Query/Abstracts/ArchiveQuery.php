@@ -3,7 +3,7 @@
 namespace Wpce\WordPress\Query\Abstracts;
 
 use \WP_Query;
-use Wpce\WordPress\Post\Abstracts\DefaultType;
+use Wpce\WordPress\Post\Post;
 
 abstract class ArchiveQuery {
 
@@ -18,12 +18,12 @@ abstract class ArchiveQuery {
   abstract protected function getPostType(): string;
 
   /**
-   * Wraps every post object with a DefaultType compatible class
+   * Wraps every post object with a Post compatible class
    *
    * @param int|WP_Post $post WordPress post object or post id
-   * @return DefaultType
+   * @return Post
    */
-  abstract protected function wrapPost($post): DefaultType;
+  abstract protected function wrapPost($post): Post;
 
   /**
    * Initialize object and assign post type
@@ -123,7 +123,7 @@ abstract class ArchiveQuery {
   /**
    * Returns found posts
    *
-   * @return DefaultType[]
+   * @return Post[]
    */
   public function getPosts(): array {
     return $this->posts;
