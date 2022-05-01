@@ -19,11 +19,17 @@ class AllowedValues {
   static function arrayOfComponentsOrStrings($value) {
     foreach ($value as $arrayItem) {
       if (!is_a($arrayItem, 'Wpce\Components\Abstracts\DefaultComponent') && !is_string($arrayItem)) {
-        throw new \Error('Used type is not of a string or a Wpce\Components\Abstracts\DefaultComponent type');
         return false;
       }
     }
     return true;
+  }
+
+  static function nullOrStringOrArrayOfComponentsOrStrings($value) {
+    if (is_array($value)) {
+      return self::arrayOfComponentsOrStrings($value);
+    }
+    return $value === null || is_string($value) || is_a($value, 'Wpce\Components\Abstracts\DefaultComponent');
   }
 
 }
