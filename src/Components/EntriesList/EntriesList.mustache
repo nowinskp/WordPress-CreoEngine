@@ -1,0 +1,12 @@
+{{# hasEntries}}
+  <{{tag}} class="{{getRootClasses}}">
+    {{# entries}}
+      <li>
+        {{{ . }}}
+      </li>
+    {{/ entries}}
+  </{{tag}}>
+{{/ hasEntries}}
+{{^ hasEntries}}
+  {{{noEntriesHtml}}}
+{{/ hasEntries}}
