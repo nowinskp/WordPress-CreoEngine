@@ -21,7 +21,7 @@ class Button extends MustacheComponent {
    * @property string 'type' button type
    * @property string 'url' href value
    *
-   * @return string
+   * @return void
    */
   protected function configureProps(OptionsResolver $resolver, array $props) {
     $resolver->setDefaults([
@@ -38,9 +38,8 @@ class Button extends MustacheComponent {
     ]);
 
     $resolver->setAllowedValues('tag', ['a', 'button']);
-    $resolver->setAllowedValues('type', [
-      null, 'button', 'submit', 'reset'
-    ]);
+    $resolver->setAllowedValues('target', [null, '_blank', '_self', '_parent', '_top']);
+    $resolver->setAllowedValues('type', [null, 'button', 'submit', 'reset']);
   }
 
   protected function parseProps(array $props) {
