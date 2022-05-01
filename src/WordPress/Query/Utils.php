@@ -28,12 +28,24 @@ class Utils {
   }
 
   /**
-   * Returns post type meta key value w/ default value
-   * Operates on single meta values only.
+   * Returns title for archive pages
    */
-  static function getPostMeta($id, $metaKey, $default = null) {
-    $metaValue = get_post_meta($id, $metaKey, true);
-    return Get::notEmpty($metaValue, $default);
+  static function getArchiveTitle() {
+    $queriedObject = @get_queried_object();
+
+    if (is_category() || is_tax() || is_tag()):
+      return $queriedObject->name;
+    elseif (is_day()):
+			echo __('Day archive:', 'wpce-getArchiveTitle').' '.get_the_date();
+    elseif (is_month()):
+      echo __('Month archive:', 'wpce-getArchiveTitle').' '.get_the_date('F Y');
+    elseif (is_year()):
+      echo __('Year archive:', 'wpce-getArchiveTitle').' '.get_the_date('Y');
+    elseif (is_archive()):
+      return $queriedObject->labels->archive_name ?: $queriedObject->label;
+    else:
+      return __('Archive', 'wpce-getArchiveTitle');
+    endif;
   }
 
 }
