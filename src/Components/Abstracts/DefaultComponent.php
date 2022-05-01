@@ -81,6 +81,16 @@ abstract class DefaultComponent {
 
 
   /**
+   * Provides automatic conversion to string
+   *
+   * @return string
+   */
+  public function __toString() {
+    return $this->getHtml();
+  }
+
+
+  /**
    * Uses OptionsResolver to validate built-in props, then parses them
    * and removes them from original props array.
    *
