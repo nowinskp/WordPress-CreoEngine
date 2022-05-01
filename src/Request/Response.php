@@ -37,9 +37,11 @@ class Response {
    */
   public function getResponse() {
     if ($this->hasErrors()) {
-      $this->addFormError(
-        defined('WPCE_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS') ? constant('WPCE_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS') : self::DEFAULT_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS
-      );
+      if ($this->hasFieldErrors()) {
+        $this->addFormError(
+          defined('WPCE_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS') ? constant('WPCE_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS') : self::DEFAULT_FORM_ERROR_WHEN_THERE_ARE_ERRORS_IN_FIELDS
+        );
+      }
 
       /**
        * If no error response code is set but response has errors
@@ -108,12 +110,21 @@ class Response {
 
 
   /**
-   * Checks if response has eny errors set.
+   * Checks if response has any field errors set.
+   *
+   * @return boolean
+   */
+  public function hasFieldErrors() {
+    return count($this->fieldErrors) > 0;
+  }
+
+  /**
+   * Checks if response has any errors set.
    *
    * @return boolean
    */
   public function hasErrors() {
-    return count($this->formErrors + $this->fieldErrors) > 0;
+    return count($this->formErrors) + count($this->fieldErrors) > 0;
   }
 
   /**
