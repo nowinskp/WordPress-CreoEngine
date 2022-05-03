@@ -214,6 +214,18 @@ class Post {
   }
 
   /**
+   * Wrapper for get_the_post_thumbnail
+   *
+   * @param string|int[] $size
+   * @param string|array $attr
+   *
+   * @return string|null
+   */
+  public function getFeaturedImage($size, $attr = ''): ?string {
+    return $this->hasFeaturedImage() ? get_the_post_thumbnail($this->getId(), $size, $attr) : null;
+  }
+
+  /**
    * Wrapper for get_the_post_thumbnail_url.
    * Returns null if there's no image set.
    *
