@@ -5,7 +5,7 @@ namespace Wpce\OptionsResolver;
 use Error;
 
 /**
- * Helpers for setAllowedValue(s) OptionsResolver method.
+ * Helpers for setAllowedValues OptionsResolver method.
  *
  * @example Code example usage
  * ```
