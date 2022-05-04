@@ -32,7 +32,7 @@ class Breadcrumbs extends MustacheComponent {
       ->allowedTypes('array[]')
       ->allowedValues(static function(array &$elements): bool {
         $subResolver = new OptionsResolver;
-        self::configureCrumbTypeOptions($subResolver);
+        static::configureCrumbTypeOptions($subResolver);
         $elements = array_map([$subResolver, 'resolve'], $elements);
         return true;
       });
@@ -40,7 +40,7 @@ class Breadcrumbs extends MustacheComponent {
     $resolver
       ->define('homeCrumb')
       ->default(function (OptionsResolver $resolver) {
-        self::configureCrumbTypeOptions($resolver);
+        static::configureCrumbTypeOptions($resolver);
         $resolver->setDefaults([
           'title' => __('Home', 'wpce-Breadcrumbs'),
           'url' => home_url(),
@@ -51,9 +51,9 @@ class Breadcrumbs extends MustacheComponent {
   protected function parseProps(array $props) {
     if (!$this->crumbs) {
       $crumbs = [];
-      $currentItem = self::getCurrentItemCrumb();
+      $currentItem = static::getCurrentItemCrumb();
       $crumbs[] = $currentItem;
-      $previousCrumbs = self::getPreviousCrumbsArray($currentItem);
+      $previousCrumbs = static::getPreviousCrumbsArray($currentItem);
 
       if (count($previousCrumbs) > 0) {
         $crumbs = array_merge($previousCrumbs, $crumbs);
@@ -124,7 +124,7 @@ class Breadcrumbs extends MustacheComponent {
 			$title = single_term_title('', false);
       $type = 'taxonomy';
 			$meta['taxonomy'] = $term->taxonomy;
-			$meta['termId'] = $term->term_id;
+			$meta['term'] = $term;
 
 		} else if (is_page()) {
       $title = get_the_title();
