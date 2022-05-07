@@ -1,0 +1,32 @@
+<nav class="{{getRootClasses}}">
+  {{# linkPrev}}
+    <div class="navElement prev">
+      {{# labelText}}
+        <div class="label">{{{labelText}}}</div>
+      {{/ labelText}}
+      <a class="link" href="{{linkUrl}}">
+        {{{linkText}}}
+      </a>
+    </div>
+  {{/ linkPrev}}
+  {{# linkIndex}}
+    <div class="navElement index">
+      {{# labelText}}
+        <div class="label">{{{labelText}}}</div>
+      {{/ labelText}}
+      <a class="link" href="{{linkUrl}}">
+        {{{linkText}}}
+      </a>
+    </div>
+  {{/ linkIndex}}
+  {{# linkNext}}
+    <div class="navElement next">
+      {{# labelText}}
+        <div class="label">{{{labelText}}}</div>
+      {{/ labelText}}
+      <a class="link" href="{{linkUrl}}">
+        {{{linkText}}}
+      </a>
+    </div>
+  {{/ linkNext}}
+</nav>
