@@ -77,17 +77,18 @@ abstract class ArchiveQuery {
   /**
   * Runs default query for published posts, filtered by taxonomy terms
   *
-  * @param array $taxTermPairs - associative array of `taxonomy => term slug` pairs, eg.
+  * @param array $taxTermPairs associative array of `taxonomy => term slug` pairs, eg.
   * [ 'sector' => 'research' ]. Term slugs can also be passed as array.
-  * @param int $limit - number of posts to return
-  * @param array $additionalParams - additional WP_Query params to be merged with base query
+  * @param int $limit number of posts to return
+  * @param array $additionalParams additional WP_Query params to be merged with base query
+  * @param string $relation relation to apply for multiple pairs, defaults to `AND`.
   *
   * @return void
   */
-  public function queryPostsByTaxonomyTermPairs(array $taxTermPairs, int $limit, array $additionalParams = []) {
+  public function queryPostsByTaxonomyTermPairs(array $taxTermPairs, int $limit, array $additionalParams = [], $relation = 'AND') {
     $taxonomyParams = [
       'tax_query' => [
-        'relation' => 'AND',
+        'relation' => $relation,
       ],
     ];
 
