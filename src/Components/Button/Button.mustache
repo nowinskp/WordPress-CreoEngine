@@ -4,12 +4,14 @@
       {{{iconHtml}}}
     </div>
   {{/iconHtml}}
-  <div class="labels">
-    {{#label}}
-      <div class="label">{{label}}</div>
-    {{/label}}
-    {{#sublabel}}
-      <div class="sublabel">{{sublabel}}</div>
-    {{/sublabel}}
-  </div>
+  {{# hasLabels}}
+    <div class="labels">
+      {{#label}}
+        <div class="label">{{label}}</div>
+      {{/label}}
+      {{#sublabel}}
+        <div class="sublabel">{{sublabel}}</div>
+      {{/sublabel}}
+    </div>
+  {{/ hasLabels}}
 </{{tag}}>

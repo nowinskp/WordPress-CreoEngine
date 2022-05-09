@@ -47,6 +47,7 @@ class Button extends MustacheComponent {
     $this->addToRootClassesIf($this->display, 'display-'.$this->display);
     $this->addToRootClassesIf($this->iconHtml, 'hasIcon');
 
+    $this->hasLabels = $this->label || $this->sublabel;
     $this->href = Get::stringIf($this->url, 'href="'.$this->url.'"');
     $this->jshandle = Get::stringIf($this->jshandle, 'data-jshandle="'.$this->jshandle.'"');
     $this->target = Get::stringIf($this->target, 'target="'.$this->target.'"');
