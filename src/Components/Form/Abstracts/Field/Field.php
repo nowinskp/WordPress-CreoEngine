@@ -15,6 +15,7 @@ abstract class Field extends MustacheComponent {
 
   /**
    * @param array $props
+   * @property string 'description' text to display after label
    * @property string 'jshandle' data-jshandle attr value
    * @property string 'label' button label
    *
@@ -22,6 +23,7 @@ abstract class Field extends MustacheComponent {
    */
   protected function configureProps(OptionsResolver $resolver, array $props) {
     $resolver->setDefaults([
+      'description' => null,
       'jshandle' => null,
       'label' => null,
     ]);

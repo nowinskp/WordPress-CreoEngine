@@ -10,9 +10,8 @@ class InputField extends Field {
 
   /**
    * @param array $props
-   * @param array $props
    * @property string 'jshandle' data-jshandle attr value
-   * @property string 'label' button label
+   * @property string 'label'
    * @property boolean 'disabled'
    * @property string 'name'
    * @property string 'placeholder'
