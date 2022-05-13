@@ -4,6 +4,7 @@ namespace Wpce\Components\EntriesList;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wpce\Components\Abstracts\MustacheComponent;
+use Wpce\OptionsResolver\AllowedTypes;
 use Wpce\OptionsResolver\AllowedValues;
 
 class EntriesList extends MustacheComponent {
@@ -30,7 +31,7 @@ class EntriesList extends MustacheComponent {
     $resolver->setAllowedValues('entries', function($value) {
       return AllowedValues::arrayOfComponentsOrStrings($value);
     });
-    $resolver->setAllowedTypes('noEntriesHtml', ['null', 'string']);
+    $resolver->setAllowedTypes('noEntriesHtml', AllowedTypes::nullOrComponentOrIntOrString());
     $resolver->setAllowedValues('tag', ['ol', 'ul']);
   }
 
