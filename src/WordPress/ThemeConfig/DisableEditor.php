@@ -15,6 +15,7 @@ class DisableEditor {
 
   protected $ids = [];
   protected $templates = [];
+  protected $frontPage = false;
 
   /**
    * @param array $options

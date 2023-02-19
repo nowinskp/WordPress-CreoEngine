@@ -104,13 +104,13 @@ class Html {
    * @param string|null $label
    * @return void
    */
-  static function getMailLink(string $mail, ?string $label) {
+  static function getMailLink(string $mail, ?string $label = null) {
     $label = $label ?: $mail;
     $attrs = [
       'href' => 'mailto:'.$mail,
       'target' => '_blank',
     ];
-		return self::getElement( 'a', $attrs, $label );
+		return self::getElement('a', $attrs, $label);
   }
 
 

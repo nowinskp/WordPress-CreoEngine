@@ -7,6 +7,8 @@ use Wpce\Utils\Get;
 
 class Post {
 
+  protected $post;
+
   function __construct($postToLoad = null) {
     if ($postToLoad === null) {
       global $post;
