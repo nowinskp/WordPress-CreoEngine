@@ -44,7 +44,10 @@ abstract class AcfOptions {
    * @return string
    */
   static function getOptionsId(): string {
-    return WPCE_ACF_OPTIONS_KEY;
+    if (defined('WPCE_ACF_OPTIONS_KEY')) {
+      return constant('WPCE_ACF_OPTIONS_KEY');
+    }
+    throw new \Exception('Missing WPCE_ACF_OPTIONS_KEY constant definition.');
   }
 
 }
