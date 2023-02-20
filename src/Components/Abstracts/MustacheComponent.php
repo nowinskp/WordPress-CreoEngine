@@ -30,7 +30,7 @@ abstract class MustacheComponent extends DefaultComponent {
    * @return string|null
    */
   public function getHtml() {
-    return Template::renderComponent($this->childRef->getShortName(), dirname($this->childRef->getFileName()), $this);
+    return Template::renderComponent($this->childRef->getShortName(), $this->getComponentDir(), $this);
   }
 
 }

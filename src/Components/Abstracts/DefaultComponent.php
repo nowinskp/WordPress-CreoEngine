@@ -12,6 +12,14 @@ abstract class DefaultComponent {
   private $classSeparator = '--';
 
   /**
+   * Optional custom class prop to be added to component root classes.
+   *
+   * @var string
+   */
+  private ?string $class;
+
+
+  /**
    * Name of the component that will be applied to its root class
    * and that can be used to construct BEM-like patterns.
    *
@@ -198,6 +206,16 @@ abstract class DefaultComponent {
     if ($condition) {
       $this->addToRootClasses($class, $usePrefix);
     }
+  }
+
+
+  /**
+   * Returns component directory path.
+   *
+   * @return string
+   */
+  protected function getComponentDir() {
+    return dirname($this->childRef->getFileName());
   }
 
 
